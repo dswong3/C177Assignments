@@ -1,0 +1,66 @@
+---
+title: "EEB177-exercise8"
+author: "Dustin Wong"
+date: "March 1, 2017"
+output: html_document
+---
+
+## Exploring the Cocoli Dataset
+
+```{r}
+cocoli_dat <- read.table("~/Desktop/eeb-177/class-assignments/classwork-21-Feb/cocoli.txt", header = TRUE)
+head(cocoli_dat)
+str(cocoli_dat)
+
+View(cocoli_dat)
+
+sizes_in_1994 <- cocoli_dat$dbh1
+names(sizes_in_1994) <- cocoli_dat$tag
+sizes_in_1994[1]
+sizes_in_1994["000001"]
+
+sizes_in_1997 <- cocoli_dat$dbh2
+
+sizes_in_1998 <- cocoli_dat$dbh3
+names(sizes_in_1998) <- cocoli_dat$tag
+
+sizes_in_1994 == 171
+
+trees_171_1994 = which(sizes_in_1994 == 171)
+trees_171_1994
+
+sizes_in_1997[trees_171_1994]
+
+yearly_RGR_1 = ((cocoli_dat$dbh2-cocoli_dat$dbh1)/cocoli_dat$dbh1)/3
+
+```
+
+##plots
+```{r}
+cocoli_dat <- read.table("~/Desktop/eeb-177/class-assignments/classwork-21-Feb/cocoli.txt")
+hist(cocoli_dat$dbh1, xlab = "DBH in 1994 (mm)", main = "Distributions of sizes in 1994")
+
+#hist(cocoli_dat$dbh1, xlab = "DBH in 1994(MM)", main = "Distributions of sizes in 1994", col = "red")
+#hist(cocoli_dat$dbh1, xlim = )
+hist_data <- hist(cocoli_dat$dbh1, plot = FALSE)
+hist_data$counts
+hist_data$counts <- log10(hist_data$counts+1)
+plot(hist_data, ylab = "log10(Frequency)")
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(cocoli_dat)
+
+ggplot(data = cocoli_dat) + geom_histogram(aes(dbh1)) + scale_y_log10()
+
+#ggplot(cocoli_dat) + geom_histogram(aed(dbh1)) + geom_histogram(aed(dbh2)), fill = "red", alpha = .2) + ggtitle("Distribution of sizes in 1994")
+```
+
+
+
+
+
+
+
